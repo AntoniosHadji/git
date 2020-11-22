@@ -10,7 +10,6 @@ In team related work, there will be multiple branches working on different featu
 If you then merge these unrelated features into main branch, you get a git log similar to this:
 
 ```git
-git log (recursive merge)
 commit 2d122fc99070c8f42cbbaebcd9cfe554ccf0f728 (HEAD -> refs/heads/main)
 Merge: 6c71509 b5f72a4
 Author: Antonios Hadjigeorgalis <Antonios@Hadji.co>
@@ -66,11 +65,14 @@ Date:   Sun Nov 22 09:25:16 2020 -0500
     initial commit
 ```
 
+After `git merge featureA`, by default you will have a fast-forward commit that looks fine.
+After `git merge featureB`, you end up with a recursive merge commit which mixes the commits of featureA and featureB in chronological order.  This is what you see above.
+
 If you were to merge multiple features at once, you get an octopus merge for the final commit.
 
+`git merge featureA featureB`
+
 ```git
-NOTE: octopus strategy when merging mulitple branches into main
-git merge featureA featureB
 commit 13711317332fab16eeee2417acfcbdecb51193bd (HEAD -> refs/heads/main)
 Merge: dd6761c b25a1a7
 Author: Antonios Hadjigeorgalis <Antonios@Hadji.co>
@@ -98,7 +100,6 @@ A better method is to rebase all feature branches before merging, and use fast-f
 This results in a git history that looks like this:
 
 ```git
-git log
 commit 73c3ca3367608f3e984e92cf82b76333dee3aac7 (HEAD -> refs/heads/main, refs/heads/featureB)
 Author: Antonios Hadjigeorgalis <Antonios@Hadji.co>
 Date:   Sun Nov 22 09:01:52 2020 -0500
